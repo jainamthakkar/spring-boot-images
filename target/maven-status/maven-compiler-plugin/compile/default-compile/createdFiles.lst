@@ -1,4 +1,4 @@
 com\imageUploading\repository\uploadRepository.class
-com\imageUploading\ImageUploadingApplication.class
 com\imageUploading\model\Images.class
+com\imageUploading\ImageUploadingApplication.class
 com\imageUploading\controller\HomeController.class
