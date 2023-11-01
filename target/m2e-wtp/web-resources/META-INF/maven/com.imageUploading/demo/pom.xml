@@ -9,7 +9,7 @@
 		<version>3.0.12</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<!--<packaging>war</packaging>-->
+	<packaging>war</packaging>
 	<groupId>com.imageUploading</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>

@@ -14,6 +14,24 @@ public class Images {
 
 	private String imageName;
 
+	private String url;
+
+	public Images(String name, String url) {
+		this.imageName = name;
+		this.url = url;
+	}
+	public Images() {
+        // Default constructor is required by JPA
+    }
+
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public int getId() {
 		return id;
 	}
