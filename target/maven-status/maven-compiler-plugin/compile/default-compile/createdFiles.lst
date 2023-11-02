@@ -1,4 +1,7 @@
 com\imageUploading\repository\uploadRepository.class
-com\imageUploading\model\Images.class
+com\imageUploading\service\FilesStorageService.class
+com\imageUploading\exception\FileUploadExceptionAdvice.class
 com\imageUploading\ImageUploadingApplication.class
 com\imageUploading\controller\HomeController.class
+com\imageUploading\service\FilesStorageServiceImpl.class
+com\imageUploading\model\Images.class

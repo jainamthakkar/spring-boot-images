@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.imageUploading.ImageUploadingApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.293 s - in com.imageUploading.ImageUploadingApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.13 s - in com.imageUploading.ImageUploadingApplicationTests
