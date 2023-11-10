@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 import jakarta.persistence.criteria.Path;
 
 public interface FilesStorageService {
@@ -18,5 +18,5 @@ public interface FilesStorageService {
 	  
 //	  public void deleteAll();
 
-//	  public Stream<Path> loadAll();
+	  public Stream<java.nio.file.Path> loadAll();
 	}

@@ -8,6 +8,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+
 </head>
 <body class="bg-light">
 
@@ -56,21 +57,28 @@
 	<div class="container">
 		<div class="row">
 
-			<div class="col-md-3" th:each="im:${list}">
+			<div class="col-md-3" th:each="im:${files}">
 				<div class="card">
+							<!-- <img alt="img" th:src="@{'/img/4.jpg'}" width="100%" height="300px"> -->
 					<div class="card-body">
-						<img alt="" th:src="@{'/uploads/' + ${im.imageName}}" width="100%"
+						<!--  <img alt="img" th:src="@{'../resources/uploads/' + ${im.imageName}}" width="100%"
+							height="300px"> -->
+						<!-- <img alt="img" th:src="@{'/files/' + ${im.imageName}}"
+							width="100%" height="300px"> -->
+							<img alt="img" th:src="@{'/uploads/' + ${im.imageName}}" width="100%"
 							height="300px">
+						<!-- <img src="/img/4.jpg"/>
+							<img alt="img" src="../../../../uploads/10.jpg" width="100%"
+							height="300px">   -->
+						<!-- <img th:src="@{${im.url}}" alt="img"/> -->
 					</div>
-					<img alt="image" src="uploads/1.jpg" width="100%" height="300px">
+					<!-- <img alt="image" src="./uploads/1.jpg" width="100%" height="300px">
+					<img alt="image" src="/resources/img/1.jpg" width="100%" height="300px">
+					<img alt="asddf" src="/src/main/resorces/img/1.jpg"> -->
 				</div>
 			</div>
 
-
-
 		</div>
 	</div>
-
-
 </body>
 </html>

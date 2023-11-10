@@ -1,18 +1,27 @@
 package com.imageUploading.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.imageUploading.model.Images;
 import com.imageUploading.repository.uploadRepository;
 import com.imageUploading.service.FilesStorageService;
+
+import ch.qos.logback.classic.Logger;
+import org.springframework.core.io.Resource;
 
 @Controller
 public class HomeController {
@@ -22,13 +31,47 @@ public class HomeController {
 
 	@Autowired
 	private uploadRepository uploadRepo;
+	
+//	private static final org.slf4j.Logger log = LoggerFactory.getLogger(HomeController.class);
+
 
 	@GetMapping("/")
-	public String index(Model m) {
-		List<Images> list = uploadRepo.findAll();
-		m.addAttribute("list", list);
+	public String getListFiles(Model model) {
+
+		try {
+
+			List<Images> fileInfos = storageService.loadAll().map(path -> {
+				String filename = path.getFileName().toString();
+				String url = MvcUriComponentsBuilder
+					    .fromMethodName(HomeController.class, "getFile", path.getFileName().toString())
+					    .build().toString();
+//				log.info("Generated URL: {}", url);
+				return new Images(filename, url);
+			}).collect(Collectors.toList());
+
+			model.addAttribute("files", fileInfos);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 		return "index";
 	}
+
+//	@GetMapping("/files")
+//	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+//		Resource file = storageService.load(filename);
+//
+//		return ResponseEntity.ofNullable(null);
+////	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file)
+//	}
+	
+	@GetMapping("/uploads/{filename:.+}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        Resource file = storageService.load(filename);
+        return ResponseEntity.ok().body(file);
+    }
 
 	@PostMapping("/imageUpload")
 	public String uploadFile(Model model, @RequestParam("img") MultipartFile file) {
@@ -50,7 +93,7 @@ public class HomeController {
 			message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
 			model.addAttribute("message", message);
 			e.printStackTrace();
-		}
+		}  
 
 		return "redirect:/";
 	}

@@ -20,7 +20,7 @@ public class ImageUploadingApplication implements CommandLineRunner {
 		System.out.println("hello!!");
 	}
 
-	@Override
+	@Override 
 	public void run(String... arg) throws Exception {
 		System.out.println("inside run");
 //	    storageService.deleteAll();

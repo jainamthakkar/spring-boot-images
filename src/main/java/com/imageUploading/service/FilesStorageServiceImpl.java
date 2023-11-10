@@ -1,12 +1,13 @@
 package com.imageUploading.service;
 
 import java.io.IOException;
+
 import java.net.MalformedURLException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.util.stream.Stream; 
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -16,8 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FilesStorageServiceImpl implements FilesStorageService {
-	private final Path root = Paths.get("./uploads");
+	private final Path root = Paths.get("src/main/resources/uploads");
 
+	
 	@Override
 	public void init() {
 		try {
@@ -26,6 +28,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 			throw new RuntimeException("Could not initialize folder for upload!");
 		}
 	}
+
 
 	@Override
 	public void save(MultipartFile file) {
@@ -40,20 +43,36 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 		}
 	}
 
+//	@Override
+//	public jakarta.annotation.Resource load(String filename) {
+//		try {
+//			Path file = root.resolve(filename);
+//			Resource resource = new UrlResource(file.toUri());
+//
+//			if (resource.exists() || resource.isReadable()) {
+//				return (jakarta.annotation.Resource) resource;
+//			} else {
+//				throw new RuntimeException("Could not read the file!");
+//			}
+//		} catch (MalformedURLException e) {
+//			throw new RuntimeException("Error: " + e.getMessage());
+//		}
+//	}
+	
 	@Override
-	public jakarta.annotation.Resource load(String filename) {
-		try {
-			Path file = root.resolve(filename);
-			Resource resource = new UrlResource(file.toUri());
+	public Resource load(String filename) {
+	    try {
+	        Path file = root.resolve(filename);
+	        Resource resource = new UrlResource(file.toUri());
 
-			if (resource.exists() || resource.isReadable()) {
-				return (jakarta.annotation.Resource) resource;
-			} else {
-				throw new RuntimeException("Could not read the file!");
-			}
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Error: " + e.getMessage());
-		}
+	        if (resource.exists() || resource.isReadable()) {
+	            return resource;
+	        } else {
+	            throw new RuntimeException("Could not read the file!");
+	        }
+	    } catch (MalformedURLException e) {
+	        throw new RuntimeException("Error: " + e.getMessage());
+	    }
 	}
 
 //  @Override
@@ -71,9 +90,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 //    FileSystemUtils.deleteRecursively(root.toFile());
 //  }
 //
-//  @Override
+  @Override
   public Stream<Path> loadAll() {
-    try {
+    try { 
     	System.out.println("loadAll");
       return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
     } catch (IOException e) {
